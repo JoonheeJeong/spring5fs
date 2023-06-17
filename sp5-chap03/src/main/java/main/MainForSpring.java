@@ -31,6 +31,9 @@ public class MainForSpring {
             } else if (cmd.startsWith("change ")) {
                 processChangePasswordCommand(cmd.split(" "));
                 continue;
+            } else if (cmd.equals("list")) {
+                processListCommand();
+                continue;
             }
 
             printHelp();
@@ -41,7 +44,8 @@ public class MainForSpring {
         String output = "잘못된 명령입니다. 아래 명령어 사용법을 확인하세요.\n" +
                 "명령어 사용법:\n" +
                 "new 이메일 이름 암호 암호_확인\n" +
-                "change 이메일 현재_암호 새로운_암호\n\n";
+                "change 이메일 현재_암호 새로운_암호\n" +
+                "list\n\n";
         System.out.println(output);
     }
 
@@ -83,5 +87,10 @@ public class MainForSpring {
         } catch (WrongPasswordException e) {
             System.out.println("이메일의 암호가 틀렸습니다.\n");
         }
+    }
+
+    private static void processListCommand() {
+        MemberListPrinter listPrinter = ctx.getBean("listPrinter", MemberListPrinter.class);
+        listPrinter.printAll();
     }
 }
