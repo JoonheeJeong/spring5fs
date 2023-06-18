@@ -34,6 +34,9 @@ public class MainForSpring {
             } else if (cmd.equals("list")) {
                 processListCommand();
                 continue;
+            } else if (cmd.startsWith("info ")) {
+                processInfoCommand(cmd.split(" "));
+                continue;
             }
 
             printHelp();
@@ -45,7 +48,8 @@ public class MainForSpring {
                 "명령어 사용법:\n" +
                 "new 이메일 이름 암호 암호_확인\n" +
                 "change 이메일 현재_암호 새로운_암호\n" +
-                "list\n\n";
+                "list\n" +
+                "info 이메일\n\n";
         System.out.println(output);
     }
 
@@ -92,5 +96,15 @@ public class MainForSpring {
     private static void processListCommand() {
         MemberListPrinter listPrinter = ctx.getBean("listPrinter", MemberListPrinter.class);
         listPrinter.printAll();
+    }
+
+    private static void processInfoCommand(String[] args) {
+        if (args.length != 2) {
+            printHelp();
+            return;
+        }
+
+        MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter", MemberInfoPrinter.class);
+        infoPrinter.printMemberInfo(args[1]);
     }
 }
