@@ -1,8 +1,15 @@
 package spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class MemberListPrinter {
-    private final MemberDao memberDao;
-    private final MemberPrinter printer;
+
+    @Autowired
+    private MemberDao memberDao;
+    @Autowired
+    private MemberPrinter printer;
+
+    public MemberListPrinter() {}
 
     public MemberListPrinter(MemberDao memberDao, MemberPrinter printer) {
         this.memberDao = memberDao;
