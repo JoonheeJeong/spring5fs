@@ -37,6 +37,9 @@ public class MainForSpring {
             } else if (cmd.startsWith("info ")) {
                 processInfoCommand(cmd.split(" "));
                 continue;
+            } else if (cmd.equals("version")) {
+                processVersionCommand();
+                continue;
             }
 
             printHelp();
@@ -49,7 +52,8 @@ public class MainForSpring {
                 "new 이메일 이름 암호 암호_확인\n" +
                 "change 이메일 현재_암호 새로운_암호\n" +
                 "list\n" +
-                "info 이메일\n\n";
+                "info 이메일\n" +
+                "version\n\n";
         System.out.println(output);
     }
 
@@ -107,4 +111,9 @@ public class MainForSpring {
         MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter", MemberInfoPrinter.class);
         infoPrinter.printMemberInfo(args[1]);
     }
+    private static void processVersionCommand() {
+        VersionPrinter versionPrinter = ctx.getBean("versionPrinter", VersionPrinter.class);
+        versionPrinter.print();
+    }
+
 }
