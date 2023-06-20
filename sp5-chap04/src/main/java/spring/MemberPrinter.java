@@ -1,12 +1,17 @@
 package spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 import java.time.format.DateTimeFormatter;
 
 public class MemberPrinter {
 
     private DateTimeFormatter dateTimeFormatter;
+
+    public MemberPrinter() {
+        dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+    }
 
     public void print(Member member) {
         String registerDateTime = (dateTimeFormatter != null)
@@ -18,7 +23,7 @@ public class MemberPrinter {
     }
 
     @Autowired(required = false)
-    public void setDateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
+    public void setDateTimeFormatter(@Nullable DateTimeFormatter dateTimeFormatter) {
         this.dateTimeFormatter = dateTimeFormatter;
     }
 }
